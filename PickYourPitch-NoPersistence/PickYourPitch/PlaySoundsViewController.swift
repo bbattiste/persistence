@@ -61,7 +61,7 @@ class PlaySoundsViewController: UIViewController {
     
     @IBAction func playAudio(_ sender: UIButton) {
         
-        // Get the pitch from the slider
+        // Get the pitch from the slider   ********
         let pitch = sliderView.value
         
         // Play the sound

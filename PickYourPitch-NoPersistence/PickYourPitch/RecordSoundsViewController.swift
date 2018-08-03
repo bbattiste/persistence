@@ -24,13 +24,17 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     @IBOutlet weak var recordingInProgress: UILabel!
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var recordButton: UIButton!
-    
+        
     // MARK: Life Cycle
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
         //Hide the stop button
         stopButton.isHidden = true
         recordButton.isEnabled = true
+        
+        
     }
 
     // MARK: Actions
