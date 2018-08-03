@@ -47,7 +47,7 @@ class PlaySoundsViewController: UIViewController {
         }
         
         // Retrieve the slider location
-        sliderView.value = UserDefaults.standard.float(forKey: "Slider Value Key")
+        sliderView.value = UserDefaults.standard.float(forKey: SliderValueKey)
         
         setUserInterfaceToPlayMode(false)
     }
