@@ -23,8 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             print("First Launch!")
             UserDefaults.standard.set(true, forKey: "hasLaunchedBefore")
+            UserDefaults.standard.set(0.0, forKey: "Slider Value Key")
+            UserDefaults.standard.synchronize()
         }
-        
     }
     
     // MARK: UIApplicationDelegate

@@ -46,6 +46,9 @@ class PlaySoundsViewController: UIViewController {
             audioFile = nil
         }
         
+        // Retrieve the slider location
+        sliderView.value = UserDefaults.standard.float(forKey: "Slider Value Key")
+        
         setUserInterfaceToPlayMode(false)
     }
     
@@ -80,6 +83,7 @@ class PlaySoundsViewController: UIViewController {
     
     @IBAction func sliderDidMove(_ sender: UISlider) {
         print("Slider vaue: \(sliderView.value)")
+        UserDefaults.standard.set(sliderView.value, forKey: "Slider Value Key")
     }
     
     // MARK: Play Audio
