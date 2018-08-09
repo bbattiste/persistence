@@ -5,13 +5,13 @@
         <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="noteBook" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Notebook" inverseName="notes" inverseEntity="Notebook" syncable="YES"/>
     </entity>
-    <entity name="Notebook" representedClassName="Notebook" syncable="YES" codeGenerationType="category">
+    <entity name="Notebook" representedClassName="Notebook" syncable="YES" codeGenerationType="class">
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="notes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Note" inverseName="noteBook" inverseEntity="Note" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Notebook" positionX="-234" positionY="-9" width="128" height="88"/>
         <element name="Note" positionX="-54" positionY="-9" width="128" height="88"/>
+        <element name="Notebook" positionX="-234" positionY="-9" width="128" height="88"/>
     </elements>
 </model>
