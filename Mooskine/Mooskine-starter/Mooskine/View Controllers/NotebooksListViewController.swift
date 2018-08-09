@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class NotebooksListViewController: UIViewController, UITableViewDataSource {
     /// A table view that displays a list of notebooks
@@ -21,6 +22,15 @@ class NotebooksListViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         navigationItem.titleView = UIImageView(image: #imageLiteral(resourceName: "toolbar-cow"))
         navigationItem.rightBarButtonItem = editButtonItem
+        
+        let fetchRequest: NSFetchRequest<Notebook> = Notebook.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        if let result = try? dataController.viewContext.fetch(fetchRequest) {
+            notebooks = result
+            tableView.reloadData()
+        }
+        
         updateEditButtonState()
     }
 
@@ -77,10 +87,11 @@ class NotebooksListViewController: UIViewController, UITableViewDataSource {
 
     /// Adds a new notebook to the end of the `notebooks` array
     func addNotebook(name: String) {
-        //TODO: add notebook
-//        let notebook = Notebook(name: name)
-//        notebooks.append(notebook)
-        tableView.insertRows(at: [IndexPath(row: numberOfNotebooks - 1, section: 0)], with: .fade)
+        let notebook = Notebook(context: dataController.viewContext)
+        notebook.creationDate = Date()
+        try? dataController.viewContext.save()
+        notebooks.insert(notebook, at: 0)
+        tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
         updateEditButtonState()
     }
 
