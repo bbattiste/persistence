@@ -13,7 +13,7 @@ class NotebooksListViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
 
     /// The `Notebook` objects being presented
-    var notebooks: [NoteBook] = []
+    var notebooks: [Notebook] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,7 +120,7 @@ class NotebooksListViewController: UIViewController, UITableViewDataSource {
         cell.nameLabel.text = aNotebook.name
         if let count = aNotebook.notes?.count {
             let pageString = count == 1 ? "page" : "pages"
-            cell.pageCountLabel.text = "\(aNotebook.notes.count) \(pageString)"
+            cell.pageCountLabel.text = "\(count) \(pageString)"
         }
 
         return cell
