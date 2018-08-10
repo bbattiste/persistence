@@ -63,6 +63,7 @@ class NotebooksListViewController: UIViewController, UITableViewDataSource {
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         let saveAction = UIAlertAction(title: "Save", style: .default) { [weak self] action in
             if let name = alert.textFields?.first?.text {
+                print(name)
                 self?.addNotebook(name: name)
             }
         }
@@ -87,8 +88,10 @@ class NotebooksListViewController: UIViewController, UITableViewDataSource {
 
     /// Adds a new notebook to the end of the `notebooks` array
     func addNotebook(name: String) {
+        print("addNotebook: \(name)")
         let notebook = Notebook(context: dataController.viewContext)
         notebook.creationDate = Date()
+        notebook.name = name
         try? dataController.viewContext.save()
         notebooks.insert(notebook, at: 0)
         tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
@@ -135,7 +138,7 @@ class NotebooksListViewController: UIViewController, UITableViewDataSource {
             let pageString = count == 1 ? "page" : "pages"
             cell.pageCountLabel.text = "\(count) \(pageString)"
         }
-
+        
         return cell
     }
 
