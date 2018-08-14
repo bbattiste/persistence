@@ -26,6 +26,16 @@ class NotebooksListViewController: UIViewController, UITableViewDataSource {
         let fetchRequest: NSFetchRequest<Notebook> = Notebook.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        print("")
+        print("dataController:  \(dataController))")
+        print("")
+        print("dataController.viewContext:  \(dataController.viewContext))")
+        print("")
+        print("fetchRequest:  \((fetchRequest)))")
+        
+        
+        
         if let result = try? dataController.viewContext.fetch(fetchRequest) {
             notebooks = result
             tableView.reloadData()

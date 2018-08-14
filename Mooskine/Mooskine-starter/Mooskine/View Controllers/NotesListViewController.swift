@@ -28,26 +28,30 @@ class NotesListViewController: UIViewController, UITableViewDataSource {
     }()
 
     override func viewDidLoad() {
-        print("+++test 17")
         super.viewDidLoad()
-
+                
         navigationItem.title = notebook.name
         navigationItem.rightBarButtonItem = editButtonItem
         
-        print("+++test 18")
         let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
         
-        print("+++test 19")
         let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
-        print("+++test 20")
         fetchRequest.sortDescriptors = [sortDescriptor]
-        print("+++test 21")
-        let predicate = NSPredicate(format: "notebook == \(String(describing: notebook.name))", notebook)
-        print("+++test 22")
+        
+        let predicate = NSPredicate(format: "notebook == %@", notebook)
         fetchRequest.predicate = predicate
+        
+        
         print("+++test 23")
-        print("fetchRequest.sortDescriptors = \(String(describing: fetchRequest.sortDescriptors))")
-        print("fetchRequest.predicate = \(String(describing: fetchRequest.predicate))")
+        print("*******fetchRequest.sortDescriptors = \(String(describing: fetchRequest.sortDescriptors!))")
+        print("")
+        print("******fetchRequest.predicate = \(String(describing: fetchRequest.predicate!))")
+        print("")
+        print("dataController:  \(dataController))")
+        print("")
+        print("dataController.viewContext:  \(dataController.viewContext))")
+        print("")
+        print("fetchRequest:  \((fetchRequest)))")
         
         if let result = try? dataController.viewContext.fetch(fetchRequest) {
             notes = result
