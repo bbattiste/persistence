@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class NotesListViewController: UIViewController, UITableViewDataSource {
     /// A table view that displays a list of notes for a notebook
@@ -16,6 +17,8 @@ class NotesListViewController: UIViewController, UITableViewDataSource {
     var notebook: Notebook!
 
     var notes:[Note] = []
+    
+    var dataController: DataController!
     
     /// A date formatter for date text in note cells
     let dateFormatter: DateFormatter = {
@@ -29,6 +32,23 @@ class NotesListViewController: UIViewController, UITableViewDataSource {
 
         navigationItem.title = notebook.name
         navigationItem.rightBarButtonItem = editButtonItem
+        
+        let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
+        
+        let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        let predicate = NSPredicate(format: "notebook == \(String(describing: notebook.name))", notebook)
+        fetchRequest.predicate = predicate
+        
+        print("fetchRequest.sortDescriptors = \(String(describing: fetchRequest.sortDescriptors))")
+        print("fetchRequest.predicate = \(String(describing: fetchRequest.predicate))")
+        
+        if let result = try? dataController.viewContext.fetch(fetchRequest) {
+            notes = result
+            tableView.reloadData()
+        }
+        
         updateEditButtonState()
     }
 
