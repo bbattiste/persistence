@@ -33,29 +33,34 @@ class NotesListViewController: UIViewController, UITableViewDataSource {
         navigationItem.title = notebook.name
         navigationItem.rightBarButtonItem = editButtonItem
         
+        print("******Test 1")
         let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
         
-        let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
+        print("******Test 2")
         let predicate = NSPredicate(format: "notebook == %@", notebook)
+        
+        print("******Test 3")
         fetchRequest.predicate = predicate
         
+        print("******Test 4")
+        let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: true)
         
-        print("+++test 23")
-        print("*******fetchRequest.sortDescriptors = \(String(describing: fetchRequest.sortDescriptors!))")
-        print("")
-        print("******fetchRequest.predicate = \(String(describing: fetchRequest.predicate!))")
-        print("")
-        print("dataController:  \(dataController))")
-        print("")
-        print("dataController.viewContext:  \(dataController.viewContext))")
-        print("")
-        print("fetchRequest:  \((fetchRequest)))")
+        print("******Test 5")
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        print("******Test 6")
+        print("+++++++++dataController: \(dataController)")
+        print("+++++++++dataController.viewContext: \(dataController.viewContext)")
+        print("+++++++++fetchRequest: \(fetchRequest)")
+        print("+++++++++notebook: \(notebook)")
+        print("+++++++++notes: \(notes)")
         
         if let result = try? dataController.viewContext.fetch(fetchRequest) {
+            print("******Test 7")
             notes = result
+            print("******Test 7")
             tableView.reloadData()
+            print("******Test 8")
         }
         
         updateEditButtonState()
@@ -86,16 +91,22 @@ class NotesListViewController: UIViewController, UITableViewDataSource {
 
     // Adds a new `Note` to the end of the `notebook`'s `notes` array
     func addNote() {
-        //TODO: add notebook
-//        notebook.addNote()
-        tableView.insertRows(at: [IndexPath(row: numberOfNotes - 1, section: 0)], with: .fade)
+        let note = Note(context: dataController.viewContext)
+        note.text = "New note"
+        note.creationDate = Date()
+        note.noteBook = notebook
+        try? dataController.viewContext.save()
+        notes.insert(note, at:0)
+        tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
         updateEditButtonState()
     }
 
     // Deletes the `Note` at the specified index path
     func deleteNote(at indexPath: IndexPath) {
-        //TODO: add notebook
-//        notebook.removeNote(at: indexPath.row)
+        let noteToDelete = note(at: indexPath)
+        dataController.viewContext.delete(noteToDelete)
+        try? dataController.viewContext.save()
+        notes.remove(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .fade)
         if numberOfNotes == 0 {
             setEditing(false, animated: true)

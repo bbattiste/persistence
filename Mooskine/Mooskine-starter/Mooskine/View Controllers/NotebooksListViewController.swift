@@ -142,23 +142,15 @@ class NotebooksListViewController: UIViewController, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("+++test 1")
         let aNotebook = notebook(at: indexPath)
-        print("+++test 2")
         let cell = tableView.dequeueReusableCell(withIdentifier: NotebookCell.defaultReuseIdentifier, for: indexPath) as! NotebookCell
 
         // Configure cell
-        print("+++test 3")
         cell.nameLabel.text = aNotebook.name
-        print("+++test 4")
         if let count = aNotebook.notes?.count {
-            print("+++test 5")
             let pageString = count == 1 ? "page" : "pages"
-            print("+++test 6")
             cell.pageCountLabel.text = "\(count) \(pageString)"
-            print("+++test 7")
         }
-        print("+++test 8")
         return cell
     }
 
@@ -182,13 +174,12 @@ class NotebooksListViewController: UIViewController, UITableViewDataSource {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // If this is a NotesListViewController, we'll configure its `Notebook`
-        print("+++test 9")
         if let vc = segue.destination as? NotesListViewController {
-            print("+++test 10")
+            print("******Test .1")
             if let indexPath = tableView.indexPathForSelectedRow {
-                print("+++test 11")
+                print("******Test .2")
                 vc.notebook = notebook(at: indexPath)
-                print("+++test 12")
+                vc.dataController = dataController
             }
         }
     }
