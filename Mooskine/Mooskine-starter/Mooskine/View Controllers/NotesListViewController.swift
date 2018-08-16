@@ -94,7 +94,7 @@ class NotesListViewController: UIViewController, UITableViewDataSource {
         let note = Note(context: dataController.viewContext)
         note.text = "New note"
         note.creationDate = Date()
-        note.noteBook = notebook
+        note.notebook = notebook
         try? dataController.viewContext.save()
         notes.insert(note, at:0)
         tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
