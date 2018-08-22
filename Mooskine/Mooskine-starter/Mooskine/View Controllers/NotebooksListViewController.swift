@@ -27,15 +27,6 @@ class NotebooksListViewController: UIViewController, UITableViewDataSource {
         let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
-        print("")
-        print("dataController:  \(dataController))")
-        print("")
-        print("dataController.viewContext:  \(dataController.viewContext))")
-        print("")
-        print("fetchRequest:  \((fetchRequest)))")
-        
-        
-        
         if let result = try? dataController.viewContext.fetch(fetchRequest) {
             notebooks = result
             tableView.reloadData()
@@ -175,9 +166,7 @@ class NotebooksListViewController: UIViewController, UITableViewDataSource {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // If this is a NotesListViewController, we'll configure its `Notebook`
         if let vc = segue.destination as? NotesListViewController {
-            print("******Test .1")
             if let indexPath = tableView.indexPathForSelectedRow {
-                print("******Test .2")
                 vc.notebook = notebook(at: indexPath)
                 vc.dataController = dataController
             }

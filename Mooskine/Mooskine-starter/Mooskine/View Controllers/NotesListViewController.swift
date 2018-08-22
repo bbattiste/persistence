@@ -33,49 +33,27 @@ class NotesListViewController: UIViewController, UITableViewDataSource {
         navigationItem.title = notebook.name
         navigationItem.rightBarButtonItem = editButtonItem
         
-        print("******Test 1")
         let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
-        
-        print("******Test 2")
         let predicate = NSPredicate(format: "notebook == %@", notebook)
         
-        print("******Test 3")
         fetchRequest.predicate = predicate
-        
-        print("******Test 4")
         let sortDescriptor = NSSortDescriptor(key: "creationDate", ascending: true)
-        
-        print("******Test 5")
         fetchRequest.sortDescriptors = [sortDescriptor]
         
-        print("******Test 6")
-        print("+++++++++dataController: \(dataController)")
-        print("+++++++++dataController.viewContext: \(dataController.viewContext)")
-        print("+++++++++fetchRequest: \(fetchRequest)")
-        print("+++++++++notebook: \(notebook)")
-        print("+++++++++notes: \(notes)")
-        
         if let result = try? dataController.viewContext.fetch(fetchRequest) {
-            print("******Test 7")
             notes = result
-            print("******Test 7")
             tableView.reloadData()
-            print("******Test 8")
         }
         
         updateEditButtonState()
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        print("+++test 13")
         super.viewWillAppear(animated)
 
         if let indexPath = tableView.indexPathForSelectedRow {
-            print("+++test 14")
             tableView.deselectRow(at: indexPath, animated: false)
-            print("+++test 15")
             tableView.reloadRows(at: [indexPath], with: .fade)
-            print("+++test 16")
         }
     }
 
