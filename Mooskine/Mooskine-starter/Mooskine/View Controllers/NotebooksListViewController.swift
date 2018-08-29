@@ -25,7 +25,7 @@ class NotebooksListViewController: UIViewController, UITableViewDataSource {
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         // 2. Instantiate fetchedResultsController
-        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: dataController.viewContext, sectionNameKeyPath: nil, cacheName: "notebooks")
         
         // 3. Add NSFetchedResultsController.Delegate protocol above and set the delegate
         fetchedResultsController.delegate = self
