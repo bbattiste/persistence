@@ -136,19 +136,24 @@ class NotebooksListViewController: UIViewController, UITableViewDataSource {
 
     func numberOfSections(in tableView: UITableView) -> Int {
         print("test 1")
-        if let sections = fetchedResultsController.sections {
-            print("test 1.5")
-            return sections.count
+        var numberOfSections = 1
+        print("****fetchedResultsController: \(fetchedResultsController)")
+        print("*****.fetchedResultsController.sections: \(String(describing: fetchedResultsController.sections))")
+
+        if fetchedResultsController.sections != nil {
+            if let sections = fetchedResultsController.sections {
+                print("test 1.5")
+                numberOfSections = sections.count
+            }
         } else {
             print("test 2")
-            return 1
+            numberOfSections = 1
         }
-        
-        
-        
-        //return fetchedResultsController.sections?.count ?? 1
-        
+        return numberOfSections
     }
+    
+        //return fetchedResultsController.sections?.count ?? 1
+    
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("test 3")
