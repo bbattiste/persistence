@@ -44,6 +44,7 @@ class NotebooksListViewController: UIViewController, UITableViewDataSource {
         navigationItem.rightBarButtonItem = editButtonItem
         
         setUpFetchedResultsController()
+        updateEditButtonState()
     }
 
     
@@ -120,12 +121,9 @@ class NotebooksListViewController: UIViewController, UITableViewDataSource {
     }
 
     func updateEditButtonState() {
-        
         if let sections = fetchedResultsController.sections {
             navigationItem.rightBarButtonItem?.isEnabled = sections[0].numberOfObjects > 0
         }
-        
-        
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
