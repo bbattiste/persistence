@@ -64,7 +64,7 @@ class NotesListViewController: UIViewController, UITableViewDataSource {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        setUpFetchedResultsController()
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: false)
             tableView.reloadRows(at: [indexPath], with: .fade)
@@ -148,26 +148,17 @@ class NotesListViewController: UIViewController, UITableViewDataSource {
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("test 23")
         // If this is a NoteDetailsViewController, we'll configure its `Note`
         // and its delete action
         if let vc = segue.destination as? NoteDetailsViewController {
-            print("test 24")
             if let indexPath = tableView.indexPathForSelectedRow {
-                print("test 25")
                 vc.note = fetchedResultsController.object(at: indexPath)
-                print("test 26")
                 vc.dataController = dataController
-                print("test 27")
                 
                 vc.onDelete = { [weak self] in
-                    print("test 28")
                     if let indexPath = self?.tableView.indexPathForSelectedRow {
-                        print("test 29")
                         self?.deleteNote(at: indexPath)
-                        print("test 30")
                         self?.navigationController?.popViewController(animated: true)
-                        print("test 31")
                     }
                 }
             }

@@ -44,13 +44,12 @@ class NotebooksListViewController: UIViewController, UITableViewDataSource {
         navigationItem.rightBarButtonItem = editButtonItem
         
         setUpFetchedResultsController()
-        updateEditButtonState()
     }
 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        setUpFetchedResultsController()
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: false)
             tableView.reloadRows(at: [indexPath], with: .fade)
@@ -135,49 +134,23 @@ class NotebooksListViewController: UIViewController, UITableViewDataSource {
     // MARK: - Table view data source
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        print("test 1")
-        var numberOfSections = 1
-        print("****fetchedResultsController: \(fetchedResultsController)")
-        print("*****.fetchedResultsController.sections: \(String(describing: fetchedResultsController.sections))")
-
-        if fetchedResultsController.sections != nil {
-            if let sections = fetchedResultsController.sections {
-                print("test 1.5")
-                numberOfSections = sections.count
-            }
-        } else {
-            print("test 2")
-            numberOfSections = 1
-        }
-        return numberOfSections
+        return fetchedResultsController.sections?.count ?? 1
     }
-    
-        //return fetchedResultsController.sections?.count ?? 1
-    
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("test 3")
         return fetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("test 5")
         let aNotebook = fetchedResultsController.object(at: indexPath)
-        print("test 6")
         let cell = tableView.dequeueReusableCell(withIdentifier: NotebookCell.defaultReuseIdentifier, for: indexPath) as! NotebookCell
-        print("test 7")
 
         // Configure cell
         cell.nameLabel.text = aNotebook.name
-        print("test 8")
         if let count = aNotebook.notes?.count {
-            print("test 9")
             let pageString = count == 1 ? "page" : "pages"
-            print("test 10")
             cell.pageCountLabel.text = "\(count) \(pageString)"
-            print("test 11")
         }
-        print("test 12")
         return cell
     }
 
@@ -192,16 +165,11 @@ class NotebooksListViewController: UIViewController, UITableViewDataSource {
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("test 13")
         // If this is a NotesListViewController, we'll configure its `Notebook`
         if let vc = segue.destination as? NotesListViewController {
-            print("test 14")
             if let indexPath = tableView.indexPathForSelectedRow {
-                print("test 15")
                 vc.notebook = fetchedResultsController.object(at: indexPath)
-                print("test 16")
                 vc.dataController = dataController
-                print("test 17")
             }
         }
     }
@@ -211,19 +179,14 @@ class NotebooksListViewController: UIViewController, UITableViewDataSource {
 extension NotebooksListViewController: NSFetchedResultsControllerDelegate {
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        print("test 18")
         tableView.beginUpdates()
-        print("test 19")
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        print("test 20")
         tableView.endUpdates()
-        print("test 21")
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        print("test 22")
         switch type {
         case .insert:
             tableView.insertRows(at: [newIndexPath!], with: .fade)
