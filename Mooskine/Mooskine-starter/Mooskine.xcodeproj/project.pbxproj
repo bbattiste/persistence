@@ -18,6 +18,8 @@
 		03B2699E1F2F8AAA00C7433C /* NotebookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B269951F2F837C00C7433C /* NotebookCell.swift */; };
 		03B2699F1F2F8AAA00C7433C /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B269961F2F837C00C7433C /* NoteCell.swift */; };
 		03B269A01F2F8AAD00C7433C /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B269981F2F837C00C7433C /* Cell.swift */; };
+		1328F84221406E2400CF327F /* UpdateToAttributedStrings.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1328F84121406E2400CF327F /* UpdateToAttributedStrings.xcmappingmodel */; };
+		1328F8442140752D00CF327F /* UpdateToAttributedStringsPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1328F8432140752D00CF327F /* UpdateToAttributedStringsPolicy.swift */; };
 		134E78CF212F78EC00AB5231 /* Notebook+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134E78CE212F78EC00AB5231 /* Notebook+Extensions.swift */; };
 		134E78D1212F80CD00AB5231 /* Note+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 134E78D0212F80CD00AB5231 /* Note+Extension.swift */; };
 		13BCE49B211A142F001C00D8 /* Mooskine.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 13BCE499211A142F001C00D8 /* Mooskine.xcdatamodeld */; };
@@ -54,6 +56,8 @@
 		03B269961F2F837C00C7433C /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		03B269981F2F837C00C7433C /* Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
 		1328F8402138849500CF327F /* Mooskine-8-30-18-attributed-strings.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Mooskine-8-30-18-attributed-strings.xcdatamodel"; sourceTree = "<group>"; };
+		1328F84121406E2400CF327F /* UpdateToAttributedStrings.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = UpdateToAttributedStrings.xcmappingmodel; sourceTree = "<group>"; };
+		1328F8432140752D00CF327F /* UpdateToAttributedStringsPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateToAttributedStringsPolicy.swift; sourceTree = "<group>"; };
 		134E78CE212F78EC00AB5231 /* Notebook+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notebook+Extensions.swift"; sourceTree = "<group>"; };
 		134E78D0212F80CD00AB5231 /* Note+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+Extension.swift"; sourceTree = "<group>"; };
 		13BCE49A211A142F001C00D8 /* Mooskine.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Mooskine.xcdatamodel; sourceTree = "<group>"; };
@@ -147,6 +151,8 @@
 			children = (
 				134E78CD212F787B00AB5231 /* Maged Object Extensions */,
 				13BCE499211A142F001C00D8 /* Mooskine.xcdatamodeld */,
+				1328F84121406E2400CF327F /* UpdateToAttributedStrings.xcmappingmodel */,
+				1328F8432140752D00CF327F /* UpdateToAttributedStringsPolicy.swift */,
 				13BCE49E211BA54D001C00D8 /* DataController.swift */,
 			);
 			path = Model;
@@ -309,12 +315,14 @@
 			files = (
 				039B105C1EDC5469002EA94F /* AppDelegate.swift in Sources */,
 				03B2699E1F2F8AAA00C7433C /* NotebookCell.swift in Sources */,
+				1328F84221406E2400CF327F /* UpdateToAttributedStrings.xcmappingmodel in Sources */,
 				13BCE49B211A142F001C00D8 /* Mooskine.xcdatamodeld in Sources */,
 				03B2699B1F2F8AA100C7433C /* NotebooksListViewController.swift in Sources */,
 				13BCE49F211BA54D001C00D8 /* DataController.swift in Sources */,
 				03B2699C1F2F8AA100C7433C /* NoteDetailsViewController.swift in Sources */,
 				03B269A01F2F8AAD00C7433C /* Cell.swift in Sources */,
 				03B2699D1F2F8AA100C7433C /* NotesListViewController.swift in Sources */,
+				1328F8442140752D00CF327F /* UpdateToAttributedStringsPolicy.swift in Sources */,
 				134E78CF212F78EC00AB5231 /* Notebook+Extensions.swift in Sources */,
 				134E78D1212F80CD00AB5231 /* Note+Extension.swift in Sources */,
 				03B2699F1F2F8AAA00C7433C /* NoteCell.swift in Sources */,
