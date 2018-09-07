@@ -19,7 +19,24 @@ class DataController {
     }
     
     init(modelName: String) {
+        // task based background check with debug flag on next line
         persistentContainer = NSPersistentContainer(name: modelName)
+    
+        // newBackgroundContext: factory method to create background context that sticks around
+//        let backgroundContext = persistentContainer.newBackgroundContext()
+//
+//        persistentContainer.performBackgroundTask { context in
+//            doSomeSlowWork()
+//            try? context.save()
+//        }
+//
+//        viewContext.perform {
+//            doSomeWork()
+//        }
+//
+//        viewContext.performAndWait {
+//            doSomeWork()
+//        }
     }
     
     // Load the persistent store
