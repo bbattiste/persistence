@@ -149,6 +149,8 @@ extension NoteDetailsViewController {
         let cowText = Pathifier.makeMutableAttributedString(for: selectedText, withFont: UIFont(name: "AvenirNext-Heavy", size: 56)!, withPatternImage: #imageLiteral(resourceName: "texture-cow"))
         newText.replaceCharacters(in: selectedRange, with: cowText)
         
+        sleep(5)
+        
         textView.attributedText = newText
         textView.selectedRange = NSMakeRange(selectedRange.location, 1)
         note.attributedText = textView.attributedText
