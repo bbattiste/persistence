@@ -17,6 +17,8 @@ class NoteDetailsViewController: UIViewController {
     var note: Note!
     
     var dataController: DataController!
+    
+    var saveObserverToken: Any?
 
     /// A closure that is run when the user asks to delete the current note
     var onDelete: (() -> Void)?
@@ -42,6 +44,12 @@ class NoteDetailsViewController: UIViewController {
         // keyboard toolbar configuration
         configureToolbarItems()
         configureTextViewInputAccessoryView()
+        
+        addSaveNotificationObserver()
+    }
+    
+    deinit {
+        removeSaveNotificationObserver()
     }
 
     @IBAction func deleteNote(sender: Any) {
@@ -159,6 +167,7 @@ extension NoteDetailsViewController {
             let cowText = Pathifier.makeMutableAttributedString(for: selectedText, withFont: UIFont(name: "AvenirNext-Heavy", size: 56)!, withPatternImage: #imageLiteral(resourceName: "texture-cow"))
             newText.replaceCharacters(in: selectedRange, with: cowText)
             
+            // test running in background
             sleep(5)
             
             backgroundNote.attributedText = newText
@@ -188,6 +197,30 @@ extension NoteDetailsViewController {
     }
 }
 
-
+extension NoteDetailsViewController {
+    // add notification observers
+    func addSaveNotificationObserver() {
+        removeSaveNotificationObserver()
+        saveObserverToken = NotificationCenter.default.addObserver(forName: .NSManagedObjectContextObjectsDidChange, object: dataController.viewContext, queue: nil, using: handleSaveNotification(notification:))
+    }
+    
+    // remove notification observers
+    func removeSaveNotificationObserver() {
+        if let token = saveObserverToken {
+            NotificationCenter.default.removeObserver(token)
+        }
+    }
+    
+    // handle notifications
+    fileprivate func reloadText() {
+        textView.attributedText = note.attributedText
+    }
+    
+    func handleSaveNotification(notification: Notification) {
+        DispatchQueue.main.async {
+            self.reloadText()
+        }
+    }
+}
 
 
