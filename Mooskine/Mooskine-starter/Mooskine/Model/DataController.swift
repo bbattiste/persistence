@@ -18,13 +18,26 @@ class DataController {
         return persistentContainer.viewContext
     }
     
+    var backgroundContext: NSManagedObjectContext!
+    
     init(modelName: String) {
-        // 1. temporary background context: task based background check with debug flag on next line
+        // temporary background context: task based background check with debug flag on next line
         persistentContainer = NSPersistentContainer(name: modelName)
     
-        // Or 2. long-lived newBackgroundContext: factory method to create background context that sticks around
-//        let backgroundContext = persistentContainer.newBackgroundContext()
-//
+        
+    }
+    
+    func configureContexts() {
+        // 2. long-lived newBackgroundContext: factory method to create background context that sticks around
+        backgroundContext = persistentContainer.newBackgroundContext()
+        
+        viewContext.automaticallyMergesChangesFromParent = true
+        backgroundContext.automaticallyMergesChangesFromParent = true
+        
+        //set background thread to be athoritative version of data
+        backgroundContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
+        viewContext.mergePolicy = NSMergePolicy.mergeByPropertyStoreTrump
+        
 //        persistentContainer.performBackgroundTask { context in
 //            doSomeSlowWork()
 //            try? context.save()
@@ -48,6 +61,7 @@ class DataController {
             }
             
             self.autoSaveViewContext()
+            self.configureContexts()
             completion?()
         }
     }
