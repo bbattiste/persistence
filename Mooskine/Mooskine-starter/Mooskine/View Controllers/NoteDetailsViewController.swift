@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class NoteDetailsViewController: UIViewController {
     /// A text view that displays a note's text
@@ -142,19 +143,33 @@ extension NoteDetailsViewController {
     }
     
     @IBAction func cowTapped(sender: Any) {
+        let backgroundContext: NSManagedObjectContext! = dataController.backgroundContext
+        
         let newText = textView.attributedText.mutableCopy() as! NSMutableAttributedString
         
         let selectedRange = textView.selectedRange
         let selectedText = textView.attributedText.attributedSubstring(from: selectedRange)
-        let cowText = Pathifier.makeMutableAttributedString(for: selectedText, withFont: UIFont(name: "AvenirNext-Heavy", size: 56)!, withPatternImage: #imageLiteral(resourceName: "texture-cow"))
-        newText.replaceCharacters(in: selectedRange, with: cowText)
         
-        sleep(5)
+        let noteID = note.objectID
         
-        textView.attributedText = newText
-        textView.selectedRange = NSMakeRange(selectedRange.location, 1)
-        note.attributedText = textView.attributedText
-        try? dataController.viewContext.save()
+        // code modifies data layer
+        backgroundContext.perform {
+            let backgroundNote = backgroundContext.object(with: noteID) as! Note
+        
+            let cowText = Pathifier.makeMutableAttributedString(for: selectedText, withFont: UIFont(name: "AvenirNext-Heavy", size: 56)!, withPatternImage: #imageLiteral(resourceName: "texture-cow"))
+            newText.replaceCharacters(in: selectedRange, with: cowText)
+            
+            sleep(5)
+            
+            backgroundNote.attributedText = newText
+            try? backgroundContext.save()
+        }
+        
+        
+        // code modifies UI
+//        textView.attributedText = newText
+//        textView.selectedRange = NSMakeRange(selectedRange.location, 1)
+        
     }
     
     // MARK: Helper methods for actions
