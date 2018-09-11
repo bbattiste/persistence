@@ -134,20 +134,34 @@ extension NoteDetailsViewController {
     }
     
     @IBAction func redTapped(sender: Any) {
-        let newText = textView.attributedText.mutableCopy() as! NSMutableAttributedString
-        let attributes:[NSAttributedStringKey: Any] = [
-            .foregroundColor: UIColor.red,
-            .underlineStyle: 1,
-            .underlineColor: UIColor.red
-        ]
-        newText.addAttributes(attributes, range: textView.selectedRange)
+        let backgroundContext: NSManagedObjectContext! = dataController.backgroundContext
         
+        let newText = textView.attributedText.mutableCopy() as! NSMutableAttributedString
         let selectedTextRange = textView.selectedTextRange
         
-        textView.attributedText = newText
-        textView.selectedTextRange = selectedTextRange
-        note.attributedText = textView.attributedText
-        try? dataController.viewContext.save()
+        let noteID = note.objectID
+        
+        // code modifies data layer
+        backgroundContext.perform {
+            let backgroundNote = backgroundContext.object(with: noteID) as! Note
+            
+            let attributes:[NSAttributedStringKey: Any] = [
+                .foregroundColor: UIColor.red,
+                .underlineStyle: 1,
+                .underlineColor: UIColor.red
+            ]
+            
+            newText.addAttributes(attributes, range: self.textView.selectedRange)
+            
+//            self.textView.attributedText = newText
+//            self.textView.selectedTextRange = selectedTextRange
+            
+            // test running in background
+            sleep(5)
+            
+            backgroundNote.attributedText = newText
+            try? backgroundContext.save()
+        }
     }
     
     @IBAction func cowTapped(sender: Any) {
